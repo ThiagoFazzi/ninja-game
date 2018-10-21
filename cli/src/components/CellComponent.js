@@ -9,6 +9,7 @@ const CellComponent = ({posY, posX}) => {
     width: '50px',
     height: '50px',
     backgroundColor: 'yellow',
+    borderRadius: '50%',
   };
 
   return (

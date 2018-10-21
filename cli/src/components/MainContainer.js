@@ -3,6 +3,7 @@ import './BoardContent.css'
 import BoardContentContainer from './BoardContentContainer'
 import { moveLeft, moveRight, moveDown, moveUp } from '../actions/players'
 import { connect } from 'react-redux'
+import HeaderComponent from './HeaderComponent';
 
 class MainContainer extends Component {
 
@@ -11,7 +12,7 @@ class MainContainer extends Component {
     }
     
     moveCell = (event) => {
-      console.log('key', event.keyCode)
+      //console.log('key', event.keyCode)
       const {moveLeft, moveRight, moveUp, moveDown} = this.props
       switch(event.keyCode){
         case 37: //left
@@ -30,15 +31,18 @@ class MainContainer extends Component {
           moveDown()
           break
 
+        case 32: //space
+          break
         default:
       }
     }
 
     render() {
+      const { players } = this.props
         return(
             <div>
-                <div className="Board-Header"></div>
-                    <BoardContentContainer/>
+                <HeaderComponent posX={players.player.x} posY={players.player.y} />
+                <BoardContentContainer/>
                 <div className="Board-Footer"></div>
             </div>
         )
@@ -53,7 +57,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = state => ({
-    players: state.payload
+    players: state.players
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer)
