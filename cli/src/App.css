@@ -7,6 +7,18 @@
   height: 40vmin;
 }
 
+.Board-Header {
+  width: 100%;
+  height: 100px;
+  background-color: red;
+}
+
+.Board-Footer {
+  width: 100%;
+  height: 40px;
+  background-color: red;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
