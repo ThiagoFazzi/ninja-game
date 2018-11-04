@@ -5,6 +5,7 @@ const HeaderComponent = ({posY, posX}) => {
   const styles = {
     p:{
       color: 'white',
+      marginTop: 0
     },
     root: {
       width: '100%',

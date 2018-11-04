@@ -5,6 +5,10 @@ const initState = {
     player: {
       x: 0,
       y: 500
+    },
+    screen: {
+      x: 0,
+      y: 0
     }
 }
 

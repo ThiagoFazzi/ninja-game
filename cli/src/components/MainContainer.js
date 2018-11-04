@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './BoardContent.css'
 import BoardContentContainer from './BoardContentContainer'
-import { moveLeft, moveRight, moveDown, moveUp } from '../actions/players'
+import { moveLeft, moveRight, moveDown, moveUp, jumpFront } from '../actions/players'
 import { connect } from 'react-redux'
 import HeaderComponent from './HeaderComponent';
 
@@ -13,25 +13,28 @@ class MainContainer extends Component {
     
     moveCell = (event) => {
       //console.log('key', event.keyCode)
-      const {moveLeft, moveRight, moveUp, moveDown} = this.props
+      const {moveLeft, moveRight, moveUp, moveDown, jumpFront} = this.props
+      const screenX = event.target.clientWidth
+      const screenY = event.target.clientHeight
       switch(event.keyCode){
         case 37: //left
-          moveLeft() 
+          moveLeft(screenX, screenY) 
           break
 
         case 39: //Right
-          moveRight() 
+          moveRight(screenX, screenY) 
           break
 
         case 38: //Up
-          moveUp()
+          moveUp(screenX, screenY)
           break
 
         case 40: //Down
-          moveDown()
+          moveDown(screenX, screenY)
           break
 
         case 32: //space
+          jumpFront(screenX, screenY)
           break
         default:
       }
@@ -53,7 +56,8 @@ const mapDispatchToProps = {
     moveLeft,
     moveRight,
     moveUp,
-    moveDown
+    moveDown,
+    jumpFront
 }
 
 const mapStateToProps = state => ({

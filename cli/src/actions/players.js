@@ -1,46 +1,71 @@
 export const CHANGE_POSITION = 'CHANGE_POSITION'
 
 
-const move = (x,y) => ({
+const move = (playerX,playerY, screenX, screenY) => ({
   type: CHANGE_POSITION,
   payload: {
       player: {
-          x: x,
-          y: y
+          x: playerX,
+          y: playerY
+      },
+      screen: {
+          x: screenX,
+          y: screenY
       }
     }
 })
 
-export const moveLeft = () => (dispatch, getState) => {
+export const moveLeft = (screenX, screenY) => (dispatch, getState) => {
     const position = getState()
     if(position.players.player.x > 0){
-        const posX = position.players.player.x - 10
-        const posY = position.players.player.y
-        dispatch(move(posX, posY))
+        const playerX = position.players.player.x - 50
+        const playerY = position.players.player.y
+        dispatch(move(playerX, playerY, screenX, screenY))
     }
 }
 
-export const moveUp = () => (dispatch, getState) => {
+export const moveUp = (screenX, screenY) => (dispatch, getState) => {
     const position = getState()
     if(position.players.player.y > 100){
-        const posX = position.players.player.x
-        const posY = position.players.player.y - 10
-        dispatch(move(posX, posY))
+        const playerX = position.players.player.x
+        const playerY = position.players.player.y - 50
+        dispatch(move(playerX, playerY, screenX, screenY))
     }
 }
 
-export const moveRight = () => (dispatch, getState) => {
+export const moveRight = (screenX, screenY) => (dispatch, getState) => {
     const position = getState()
-    const posX = position.players.player.x + 10
-    const posY = position.players.player.y
-    dispatch(move(posX, posY))
+    console.log(screenX)
+    if(position.players.player.x < (screenX-50)){
+        const playerX = position.players.player.x + 50
+        const playerY = position.players.player.y
+        dispatch(move(playerX, playerY, screenX, screenY))
+    }
 }
 
-export const moveDown = () => (dispatch, getState) => {
+export const moveDown = (screenX, screenY) => (dispatch, getState) => {
     const position = getState()
     if(position.players.player.y < 500){
-        const posX = position.players.player.x
-        const posY = position.players.player.y + 10
-        dispatch(move(posX, posY))
+        const playerX = position.players.player.x
+        const playerY = position.players.player.y + 50
+        dispatch(move(playerX, playerY, screenX, screenY))
+    }
+}
+
+export const jumpFront = (screenX, screenY) => (dispatch, getState) => {
+    const position = getState()
+    if(position.players.player.x < (screenX-50) && position.players.player.y <= 500){
+        const playerX = position.players.player.x
+        const playerY = position.players.player.y
+        Promise.resolve(_ => {
+            setTimeout(
+                dispatch(move(playerX + 50, playerY -100, screenX, screenY))
+            ,2000)
+            })
+            //.then(setTimeout(_ => 
+            //    dispatch(move(playerX + 50, playerY, screenX, screenY))
+            //,2000))
+        
+        //.then(console.log('finished'))
     }
 }
